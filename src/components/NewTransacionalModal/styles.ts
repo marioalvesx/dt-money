@@ -57,7 +57,12 @@ export const TransactionTypeContainer = styled.div`
 
 interface RadioBoxProps {
   isActive: boolean;
+  activeColor: string;
 }
+
+const colors = {
+  green,
+};
 
 export const RadioBox = styled.button<RadioBoxProps>`
   height: 4rem;

@@ -21,17 +21,24 @@ export function NewTransactionalModal({
   const [title, setTitle] = useState("");
   const [amount, setAmount] = useState(0);
   const [category, setCategory] = useState("");
-  const [type, setType] = useState("");
+  const [type, setType] = useState("deposit");
 
-  function handleCreateNewTransaction(event: FormEvent) {
+  async function handleCreateNewTransaction(event: FormEvent) {
     event.preventDefault();
 
-    createTransaction({
+    await createTransaction({
       title,
       amount,
       category,
       type,
     });
+
+    setTitle("");
+    setAmount(0);
+    setCategory("");
+    setType("deposit");
+
+    onRequestClose();
   }
 
   return (
@@ -67,23 +74,23 @@ export function NewTransactionalModal({
           <RadioBox
             type="button"
             onClick={() => {
-              setType("withdraw");
+              setType("deposit");
             }}
-            isActive={type === "withdraw"}
+            isActive={type === "deposit"}
             activeColor="green"
           >
-            <img src={incomeImg} alt="Entrada" />
+            <img src={incomeImg} alt="Income" />
             <span>Income</span>
           </RadioBox>
           <RadioBox
             type="button"
             onClick={() => {
-              setType("deposit");
+              setType("withdraw");
             }}
-            isActive={type === "deposit"}
+            isActive={type === "withdraw"}
             activeColor="red"
           >
-            <img src={outcomeImg} alt="Saída" />
+            <img src={outcomeImg} alt="Withdraw" />
             <span>Outcome</span>
           </RadioBox>
         </TransactionTypeContainer>
